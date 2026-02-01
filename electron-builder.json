@@ -1,0 +1,26 @@
+{
+    "appId": "com.gamejam26.maskslapgame",
+    "productName": "Mask Slap Game",
+    "directories": {
+        "output": "dist-electron"
+    },
+    "files": [
+        "dist/**/*",
+        "electron/**/*"
+    ],
+    "mac": {
+        "target": "dmg",
+        "hardenedRuntime": false,
+        "identity": "-",
+        "extendInfo": {
+            "NSCameraUsageDescription": "This app needs access to the camera to track your movements.",
+            "NSMicrophoneUsageDescription": "This app needs access to the microphone for game interaction."
+        }
+    },
+    "win": {
+        "target": "nsis"
+    },
+    "linux": {
+        "target": "AppImage"
+    }
+}

@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Slap Game</title>
+  <style>
+    .hidden {
+      display: none !important;
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bangers&family=Chakra+Petch:wght@400;700&family=Russo+One&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+  <div id="app">
+    <video id="input_video" style="display: none;"></video>
+    <canvas id="output_canvas"></canvas>
+
+
+
+    <!-- Start Screen -->
+    <div id="start-screen">
+      <h1 class="game-title">MASK ON！<br><span class="subtitle">SLAP & DODGE</span></h1>
+      <div class="menu-container">
+        <button id="btn-story" class="menu-btn">STORY MODE</button>
+      </div>
+      <div class="credits">Use Camera • Move Head to Dodge • Hand to Slap</div>
+
+    </div>
+
+    <!-- Level Select Screen -->
+    <div id="level-select-screen" class="hidden">
+      <h2 class="game-title" style="font-size: 4rem;">SELECT LEVEL</h2>
+      <div class="level-container">
+        <div class="level-card" id="btn-level-street">
+          <div class="level-title">STREET</div>
+        </div>
+        <div class="level-card" id="btn-level-office">
+          <div class="level-title">OFFICE</div>
+        </div>
+      </div>
+
+      <div class="difficulty-container" style="margin-top: 20px;">
+        <button class="difficulty-btn selected" id="btn-diff-easy">EASY</button>
+        <button class="difficulty-btn" id="btn-diff-hard">HARD</button>
+      </div>
+
+      <button id="btn-back-menu" class="menu-btn secondary" style="margin-top: 30px;">BACK</button>
+    </div>
+    <!-- Prep Screen -->
+    <div id="prep-screen" class="hidden">
+      <!-- Cutscene Layer -->
+      <div id="cutscene-layer"></div>
+
+      <!-- Prep UI Layer (Initially hidden or overlaid?) -->
+      <div id="prep-ui" class="hidden">
+        <h2 class="game-title" style="font-size: 3rem;">ADJUST CAMERA</h2>
+        <div class="prep-container">
+          <div id="prep-status" class="prep-status">Looking for face...</div>
+          <button id="btn-start-fight" class="menu-btn disabled">FIGHT!</button>
+        </div>
+        <div class="credits">Make sure your face is clearly visible.</div>
+      </div>
+      <div id="loading-container" style="position: absolute; bottom: 20px; z-index: 10; width: 300px;">
+        <div style="color: white; font-family: 'Chakra Petch', sans-serif; text-align: center; margin-bottom: 5px;"
+          id="loading-text">Loading Camera...</div>
+        <div
+          style="width: 100%; height: 10px; background: rgba(255,255,255,0.3); border-radius: 5px; overflow: hidden;">
+          <div id="loading-bar" style="width: 0%; height: 100%; background: #2ecc71; transition: width 0.3s;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Victory Screen -->
+
+    <div id="victory-screen" class="hidden">
+      <h1 class="game-title" style="font-size: 5rem; color: #f1c40f;">VICTORY!</h1>
+      <div class="menu-container">
+        <button id="btn-restart" class="menu-btn">PLAY AGAIN</button>
+        <button id="btn-menu" class="menu-btn secondary">MAIN MENU</button>
+      </div>
+    </div>
+
+    <!-- Defeat Screen -->
+    <div id="defeat-screen" class="hidden">
+      <h1 class="game-title" style="font-size: 5rem; color: #e74c3c;">GAME OVER</h1>
+      <div class="menu-container">
+        <button id="btn-retry" class="menu-btn">RETRY</button>
+        <button id="btn-giveup" class="menu-btn secondary">GIVE UP</button>
+      </div>
+    </div>
+
+    <div id="battle-ui" class="hidden">
+      <div id="enemy-panel">
+        <div class="health-bar-container">
+          <div id="enemy-hp" class="health-fill"></div>
+          <div id="enemy-hp-text" class="hp-text">100/100</div>
+        </div>
+        <div id="boss-name" style="color:white; font-family: sans-serif; font-weight: bold; margin-left: 10px;">TOXIC
+          BOSS</div>
+      </div>
+
+
+      <div id="boss-container">
+        <div id="boss-hand" class="hidden"></div>
+      </div>
+
+
+      <div id="player-panel" style="align-self: center;">
+        <div style="color:white; font-family: sans-serif; font-weight: bold; margin-bottom: 5px; text-align: center;">
+          YOU
+        </div>
+        <div class="health-bar-container">
+          <div id="player-hp" class="health-fill" style="background: #2ecc71;"></div>
+          <div id="player-hp-text" class="hp-text">100/100</div>
+        </div>
+      </div>
+    </div>
+
+
+    <div id="feedback" class="hidden"></div>
+
+    <div id="combo-counter" class="hidden"></div>
+    <div id="flash-overlay" class="hidden"></div>
+    <div id="ultimate-overlay" class="hidden">
+      <div class="speed-lines"></div>
+      <div class="ultimate-text">ULTIMATE!</div>
+    </div>
+    <div id="shockwave-container"></div>
+    <div id="status"
+      style="position: absolute; top: 10px; left: 10px; color: white; background: rgba(0,0,0,0.5); padding: 10px; font-family: monospace;">
+      Initializing...</div>
+    <pre id="debug-log"
+      style="position: absolute; bottom: 10px; left: 10px; color: #0f0; background: rgba(0,0,0,0.7); padding: 10px; max-height: 200px; overflow: auto; width: 500px; pointer-events: none; font-size: 12px;"></pre>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+
+</html>

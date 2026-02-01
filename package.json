@@ -1,0 +1,29 @@
+{
+  "name": "mask-slap-game",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "description": "A game where you slap masks",
+  "author": "Harrison Cui",
+  "main": "electron/main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "electron:dev": "concurrently -k \"npm run dev\" \"wait-on tcp:5173 && electron . --dev\"",
+    "electron:build": "vite build && electron-builder",
+    "electron:build:win": "vite build && electron-builder --win --x64"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "electron": "^40.1.0",
+    "electron-builder": "^26.7.0",
+    "vite": "^5.0.0",
+    "wait-on": "^9.0.3"
+  },
+  "dependencies": {
+    "@mediapipe/camera_utils": "^0.3.1675466862",
+    "@mediapipe/drawing_utils": "^0.3.1675466124",
+    "@mediapipe/holistic": "^0.5.1675471629"
+  }
+}
