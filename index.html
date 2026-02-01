@@ -16,6 +16,32 @@
   <link
     href="https://fonts.googleapis.com/css2?family=Bangers&family=Chakra+Petch:wght@400;700&family=Russo+One&display=swap"
     rel="stylesheet">
+  <script>
+    window.onerror = function (msg, url, lineNo, columnNo, error) {
+      var message = [
+        'Message: ' + msg,
+        'URL: ' + url,
+        'Line: ' + lineNo,
+        'Column: ' + columnNo,
+        'Error object: ' + JSON.stringify(error)
+      ].join(' - ');
+
+      var errorBox = document.createElement('div');
+      errorBox.style.position = 'fixed';
+      errorBox.style.top = '0';
+      errorBox.style.left = '0';
+      errorBox.style.width = '100%';
+      errorBox.style.backgroundColor = 'red';
+      errorBox.style.color = 'white';
+      errorBox.style.zIndex = '9999';
+      errorBox.style.padding = '10px';
+      errorBox.style.fontFamily = 'monospace';
+      errorBox.innerText = 'GLOBAL ERROR: ' + message;
+      document.body.appendChild(errorBox);
+
+      return false;
+    };
+  </script>
 </head>
 
 <body>

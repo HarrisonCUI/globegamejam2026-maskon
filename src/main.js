@@ -465,8 +465,15 @@ const battle = new BattleSystem(ui);
 
 // Menu Handlers
 document.getElementById('btn-story').addEventListener('click', () => {
+    console.log("Button Story Clicked");
+    log("Button Story Clicked");
     // Go to Level Select instead of straight to Prep
-    ui.enterLevelSelect();
+    try {
+        ui.enterLevelSelect();
+        log("Entered Level Select");
+    } catch (e) {
+        error("Error entering level select: " + e.message);
+    }
 });
 
 document.getElementById('btn-level-street').addEventListener('click', () => {
