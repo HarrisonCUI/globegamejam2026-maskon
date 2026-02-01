@@ -1,9 +1,17 @@
-import { Holistic, FACEMESH_TESSELATION, HAND_CONNECTIONS } from '@mediapipe/holistic'
-import { Camera } from '@mediapipe/camera_utils'
+import * as mpHolistic from '@mediapipe/holistic';
+import { Camera } from '@mediapipe/camera_utils';
 
 export class InputSystem {
     constructor(videoElement, onResultsCallback) {
         this.videoElement = videoElement;
+
+        // Robust import handling for Production Build
+        const Holistic = mpHolistic.Holistic || mpHolistic.default?.Holistic || window.Holistic;
+        if (!Holistic) {
+            console.error("Critical Error: Holistic class not found in import", mpHolistic);
+            throw new Error("Mediapipe Holistic class could not be loaded.");
+        }
+
         this.holistic = new Holistic({
             locateFile: (file) => {
                 return `https://cdn.jsdelivr.net/npm/@mediapipe/holistic/${file}`;
