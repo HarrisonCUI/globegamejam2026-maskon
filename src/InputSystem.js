@@ -1,15 +1,22 @@
 import * as mpHolistic from '@mediapipe/holistic';
-import { Camera } from '@mediapipe/camera_utils';
+import * as mpCamera from '@mediapipe/camera_utils';
 
 export class InputSystem {
     constructor(videoElement, onResultsCallback) {
         this.videoElement = videoElement;
 
-        // Robust import handling for Production Build
+        // Robust import handling for Production Build - Holistic
         const Holistic = mpHolistic.Holistic || mpHolistic.default?.Holistic || window.Holistic;
         if (!Holistic) {
             console.error("Critical Error: Holistic class not found in import", mpHolistic);
             throw new Error("Mediapipe Holistic class could not be loaded.");
+        }
+
+        // Robust import handling for Production Build - Camera
+        const Camera = mpCamera.Camera || mpCamera.default?.Camera || window.Camera;
+        if (!Camera) {
+            console.error("Critical Error: Camera class not found in import", mpCamera);
+            throw new Error("Mediapipe Camera class could not be loaded.");
         }
 
         this.holistic = new Holistic({
