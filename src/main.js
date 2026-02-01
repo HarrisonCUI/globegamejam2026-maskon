@@ -217,15 +217,15 @@ const ui = {
         // Update BG
         const app = document.getElementById('app');
         if (level === 'STREET') {
-            app.style.backgroundImage = "url('./assets/street_day_bg.png')";
-            ui.cutsceneLayer.style.backgroundImage = "url('./assets/character/intro.png')";
+            app.style.backgroundImage = `url(${new URL('./assets/street_day_bg.png', import.meta.url).href})`;
+            ui.cutsceneLayer.style.backgroundImage = `url(${new URL('./assets/character/intro.png', import.meta.url).href})`;
         } else if (level === 'OFFICE') {
-            app.style.backgroundImage = "url('./assets/office_scene_bg.png')";
-            ui.cutsceneLayer.style.backgroundImage = "url('./assets/character/boss_intro.png')";
+            app.style.backgroundImage = `url(${new URL('./assets/office_scene_bg.png', import.meta.url).href})`;
+            ui.cutsceneLayer.style.backgroundImage = `url(${new URL('./assets/character/boss_intro.png', import.meta.url).href})`;
         } else {
             // Default
-            app.style.backgroundImage = "url('./assets/street_day_bg.png')";
-            ui.cutsceneLayer.style.backgroundImage = "url('./assets/character/intro.png')";
+            app.style.backgroundImage = `url(${new URL('./assets/street_day_bg.png', import.meta.url).href})`;
+            ui.cutsceneLayer.style.backgroundImage = `url(${new URL('./assets/character/intro.png', import.meta.url).href})`;
         }
 
         ui.startScreen.classList.add('hidden');
@@ -336,9 +336,9 @@ const ui = {
 
             // Animation Frames - Slowed down (Existing Auntie logic)
             const frames = [
-                './assets/character/aunt/skill1.png',
-                './assets/character/aunt/skill2.png',
-                './assets/character/aunt/skill3.png'
+                new URL('./assets/character/aunt/skill1.png', import.meta.url).href,
+                new URL('./assets/character/aunt/skill2.png', import.meta.url).href,
+                new URL('./assets/character/aunt/skill3.png', import.meta.url).href
             ];
             let frameIndex = 0;
 
@@ -784,13 +784,13 @@ function detectHand(landmarks, hand) {
 // Asset Check
 const bgImg = new Image();
 bgImg.onload = () => log("Office BG loaded successfully");
-bgImg.onerror = () => error("Failed to load Office BG at ./assets/office_bg.png");
-bgImg.src = './assets/office_bg.png';
+bgImg.onerror = () => error("Failed to load Office BG");
+bgImg.src = new URL('./assets/office_bg.png', import.meta.url).href;
 
 const bossImg = new Image();
 bossImg.onload = () => log("Boss Idle loaded successfully");
-bossImg.onerror = () => error("Failed to load Boss Idle at ./assets/character/aunt/level1-character-normal.png");
-bossImg.src = './assets/character/aunt/level1-character-normal.png';
+bossImg.onerror = () => error("Failed to load Boss Idle");
+bossImg.src = new URL('./assets/character/aunt/level1-character-normal.png', import.meta.url).href;
 
 
 log("Initializing InputSystem start...");
