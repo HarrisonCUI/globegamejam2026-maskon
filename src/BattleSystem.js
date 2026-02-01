@@ -41,26 +41,26 @@ export class BattleSystem {
         // Define Assets based on Level
         if (level === 'OFFICE') {
             this.assets = {
-                normal: '/assets/character/boss/boss-normal.png',
-                attack: '/assets/character/boss/boss-attack.png',
-                hurt: '/assets/character/boss/boss-hurt.png',
-                win: '/assets/character/boss/win.png', // Boss Wins
-                lose: '/assets/character/boss/boss-fail.png', // Boss Loses
+                normal: new URL('./assets/character/boss/boss-normal.png', import.meta.url).href,
+                attack: new URL('./assets/character/boss/boss-attack.png', import.meta.url).href,
+                hurt: new URL('./assets/character/boss/boss-hurt.png', import.meta.url).href,
+                win: new URL('./assets/character/boss/win.png', import.meta.url).href, // Boss Wins
+                lose: new URL('./assets/character/boss/boss-fail.png', import.meta.url).href, // Boss Loses
                 skills: [
-                    '/assets/character/boss/skill1.png',
-                    '/assets/character/boss/skill2.png',
-                    '/assets/character/boss/skill3.png'
+                    new URL('./assets/character/boss/skill1.png', import.meta.url).href,
+                    new URL('./assets/character/boss/skill2.png', import.meta.url).href,
+                    new URL('./assets/character/boss/skill3.png', import.meta.url).href
                 ]
             };
             this.ui.updateBossName("ANNOYING BOSS"); // Optional name change
         } else {
             // Default STREET / Auntie
             this.assets = {
-                normal: '/assets/character/aunt/level1-character-normal.png',
-                attack: '/assets/character/aunt/aunt-attack.png',
-                hurt: '/assets/character/aunt/aunt-hurt.png',
-                win: '/assets/character/aunt/level1-character_win.png',
-                lose: '/assets/character/aunt/level1-character_lose.png',
+                normal: new URL('./assets/character/aunt/level1-character-normal.png', import.meta.url).href,
+                attack: new URL('./assets/character/aunt/aunt-attack.png', import.meta.url).href,
+                hurt: new URL('./assets/character/aunt/aunt-hurt.png', import.meta.url).href,
+                win: new URL('./assets/character/aunt/level1-character_win.png', import.meta.url).href,
+                lose: new URL('./assets/character/aunt/level1-character_lose.png', import.meta.url).href,
                 skills: null
             };
             this.ui.updateBossName("TOXIC AUNTIE");
