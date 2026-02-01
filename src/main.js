@@ -217,15 +217,15 @@ const ui = {
         // Update BG
         const app = document.getElementById('app');
         if (level === 'STREET') {
-            app.style.backgroundImage = "url('/assets/street_day_bg.png')";
-            ui.cutsceneLayer.style.backgroundImage = "url('/assets/character/过场.png')";
+            app.style.backgroundImage = "url('./assets/street_day_bg.png')";
+            ui.cutsceneLayer.style.backgroundImage = "url('./assets/character/intro.png')";
         } else if (level === 'OFFICE') {
-            app.style.backgroundImage = "url('/assets/office_scene_bg.png')";
-            ui.cutsceneLayer.style.backgroundImage = "url('/assets/character/boss过场.png')";
+            app.style.backgroundImage = "url('./assets/office_scene_bg.png')";
+            ui.cutsceneLayer.style.backgroundImage = "url('./assets/character/boss_intro.png')";
         } else {
             // Default
-            app.style.backgroundImage = "url('/assets/street_day_bg.png')";
-            ui.cutsceneLayer.style.backgroundImage = "url('/assets/character/过场.png')";
+            app.style.backgroundImage = "url('./assets/street_day_bg.png')";
+            ui.cutsceneLayer.style.backgroundImage = "url('./assets/character/intro.png')";
         }
 
         ui.startScreen.classList.add('hidden');
@@ -336,9 +336,9 @@ const ui = {
 
             // Animation Frames - Slowed down (Existing Auntie logic)
             const frames = [
-                '/assets/character/aunt/skill1.png',
-                '/assets/character/aunt/skill2.png',
-                '/assets/character/aunt/skill3.png'
+                './assets/character/aunt/skill1.png',
+                './assets/character/aunt/skill2.png',
+                './assets/character/aunt/skill3.png'
             ];
             let frameIndex = 0;
 
@@ -777,13 +777,13 @@ function detectHand(landmarks, hand) {
 // Asset Check
 const bgImg = new Image();
 bgImg.onload = () => log("Office BG loaded successfully");
-bgImg.onerror = () => error("Failed to load Office BG at /assets/office_bg.png");
-bgImg.src = '/assets/office_bg.png';
+bgImg.onerror = () => error("Failed to load Office BG at ./assets/office_bg.png");
+bgImg.src = './assets/office_bg.png';
 
 const bossImg = new Image();
 bossImg.onload = () => log("Boss Idle loaded successfully");
-bossImg.onerror = () => error("Failed to load Boss Idle at /assets/character/aunt/level1-character-normal.png");
-bossImg.src = '/assets/character/aunt/level1-character-normal.png';
+bossImg.onerror = () => error("Failed to load Boss Idle at ./assets/character/aunt/level1-character-normal.png");
+bossImg.src = './assets/character/aunt/level1-character-normal.png';
 
 
 log("Initializing InputSystem start...");
