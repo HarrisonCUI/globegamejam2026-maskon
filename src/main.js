@@ -1,10 +1,40 @@
 import { InputSystem } from './InputSystem.js';
 import { BattleSystem } from './BattleSystem.js';
 import { MusicManager } from './MusicManager.js';
-import { drawConnectors, drawLandmarks } from '@mediapipe/drawing_utils';
+import * as drawingUtils from '@mediapipe/drawing_utils';
 
 import { FACEMESH_TESSELATION, HAND_CONNECTIONS } from '@mediapipe/holistic';
 import './style.css';
+
+// Robust handling for drawing utils
+const drawConnectors = drawingUtils.drawConnectors || drawingUtils.default?.drawConnectors || function (ctx, landmarks, connections, style) {
+    console.warn("Using fallback drawConnectors");
+    if (!landmarks || !connections) return;
+    ctx.strokeStyle = style.color || '#00FF00';
+    ctx.lineWidth = style.lineWidth || 2;
+    connections.forEach(([start, end]) => {
+        if (landmarks[start] && landmarks[end]) {
+            ctx.beginPath();
+            ctx.moveTo(landmarks[start].x * ctx.canvas.width, landmarks[start].y * ctx.canvas.height);
+            ctx.lineTo(landmarks[end].x * ctx.canvas.width, landmarks[end].y * ctx.canvas.height);
+            ctx.stroke();
+        }
+    });
+};
+
+const drawLandmarks = drawingUtils.drawLandmarks || drawingUtils.default?.drawLandmarks || function (ctx, landmarks, style) {
+    console.warn("Using fallback drawLandmarks");
+    if (!landmarks) return;
+    ctx.fillStyle = style.color || '#FF0000';
+    const radius = style.radius || 2;
+    landmarks.forEach(landmark => {
+        ctx.beginPath();
+        ctx.arc(landmark.x * ctx.canvas.width, landmark.y * ctx.canvas.height, radius, 0, 2 * Math.PI);
+        ctx.fill();
+    });
+};
+
+console.log("Drawing utils loaded:", { drawConnectors: !!drawConnectors, drawLandmarks: !!drawLandmarks });
 
 
 const canvasElement = document.getElementById('output_canvas');
@@ -596,6 +626,15 @@ function onResults(results) {
     }
 
     if (battle.isActive) {
+        // Debug: Log hand detection
+        if (results.leftHandLandmarks || results.rightHandLandmarks) {
+            console.log("Hand detected:", {
+                left: !!results.leftHandLandmarks,
+                right: !!results.rightHandLandmarks,
+                battleState: battle.state
+            });
+        }
+
         if (results.leftHandLandmarks) {
             drawConnectors(canvasCtx, results.leftHandLandmarks, HAND_CONNECTIONS, { color: '#CC0000', lineWidth: 5 });
             drawLandmarks(canvasCtx, results.leftHandLandmarks, { color: '#00FF00', lineWidth: 2 });
